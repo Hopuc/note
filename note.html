@@ -16,11 +16,32 @@
 				margin: 0;
 				width: 100%;
 				height: 100%;
+				font-family: "microsoft yahei";
 			}
 			
 			p{
 				line-height: 24px;
 				margin: 0;
+			}
+			
+			.tipbox {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				//border: 1px solid #000000;
+			}
+			
+			#tip {
+				padding: 3px 6px;
+				position: fixed;
+				text-align: center;
+				background: rgba(250, 250, 250, .6);
+				z-index: 1001;
+				//box-sizing: border-box;
+				display: none;
+				//border: 1px solid #666666;
+				border-radius: 5px;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 			}
 			
 			.main{
@@ -50,7 +71,6 @@
 			
 			#text{
 				width: 100%;
-				//max-width: 600px;
 				min-height: 20px;
 				line-height: 24px;
 				//margin: auto;
@@ -60,7 +80,7 @@
 				border: 0;
 				border-left: 1px solid #ccc;
 				font-size: 16px;
-				//word-wrap: break-word;
+				word-wrap: break-word;
 			}
 			
 			#text:hover,
@@ -94,6 +114,9 @@
 		</style>
 	</head>
 	<body>
+		<div class="tipbox">
+			<div id="tip"></div>
+		</div>
 		<div class="main">
 			<div>
 				<p id="title-text">HOPUC</p>
@@ -110,17 +133,17 @@
 				<button class="btn" id="copy">复制</button>
 			</form>
 
-			<iframe id="frame" name="frame" frameborder="0"></iframe>
+			<!-- <iframe id="frame" name="frame" frameborder="0"></iframe> -->
 		</div>
 		<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
 		<script>
-			$.getJSON("note.txt", function(data) {
-				$("#text").html(data.note);
+			$.getJSON("note.php", function(data) {
 				$("#time-text").html(data.time);
+				$("#text").html(data.note);
 				console.log(data);
 			});
 
-			$('#text').blur(function() {
+			$("#text").blur(function() {
 				$("#note").val($("#text").html());
 				console.log($("#note").val());
 			});
@@ -145,53 +168,73 @@
 			console.log(time);
 			$("#time").val(time);
 
-			$("#submit").click(function(e) {
-				if ($("#submit").html() == "编辑") {
-					$("#submit").html("保存");
-					$("#text").attr('contenteditable', 'true');
+			/* $("#submit").click(function(e) {
+				e.preventDefault();
+				if ($("#submit").text() == "编辑") {
+					$("#submit").text("保存");
+					$("#text").attr("contenteditable", "true");
 				} else {
-					e.preventDefault();
 					var text = $("#text").html();
 					$.ajax({
 						url: "note.php",
-						type: "POST",
+						type: "POST", 
 						data: {
 							note: text,
 							time: time
 						},
-						dataType: "text",
+						dataType: "json",
 						timeout: 5000, //超时时间设置，单位毫秒
 						success: function(result) {
-							alert("保存成功");
+							//alert("成功");
+							console.log(result);
+							if(result.status == 1){
+								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+							}else{
+								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+							}
 						},
 						error: function(msg) {
-							alert("保存失败");
+							//alert("失败");
+							console.log(msg);
+							$("#tip").text("连接失败").show(200).delay(2000).hide(200);
 						}
 					});
-					$("#submit").html("编辑");
-					$("#text").attr('contenteditable', 'false');
+					$("#submit").text("编辑");
+					$("#text").attr("contenteditable", "false");
+					return false;
+				}
+			}); */
+
+
+			$("#submit").click(function(e) {
+				e.preventDefault();
+				if ($("#submit").text() == "编辑") {
+					$("#submit").text("保存");
+					$("#text").attr("contenteditable", "true");
+				} else {
+					var text = $("#text").html();
+					$.post("note.php", {
+							note: text,
+							time: time
+						},
+						function(result) {
+							console.log(result);
+							if (result.status == 0) {
+								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+							}
+							if (result.status == 1) {
+								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+							}
+						}, "json"
+					);
+					$("#submit").text("编辑");
+					$("#text").attr("contenteditable", "false");
 					return false;
 				}
 			});
 
 
-			$("#submit2").click(function() {
-				$.post("note.php", {
-						note: text,
-						time: time
-					},
-					function(result) {
-						if (result.status == 0) {
-							return dialog.error(result.message);
-						}
-						if (result.status == 1) {
-							return dialog.success(result.message);
-						}
-					}, 'JSON');
-			});
-
-
-			$('#copy').click(function copy() {
+			$("#copy").click(function copy() {
 				var node = document.getElementById("text");
 				var range = document.createRange();
 				range.selectNodeContents(node);
@@ -199,13 +242,16 @@
 				selection.removeAllRanges();
 				selection.addRange(range);
 				document.execCommand('Copy');
-				alert("复制成功");
 
-				/* var tip = document.getElementById("tip");
+				/* alert("复制成功");
+				var tip = document.getElementById("tip");
 				tip.style.display = "block";
 				setInterval(function() {
 					tip.style.display = "none";
 				}, 2000); */
+
+				$("#tip").text("复制成功").show(200).delay(2000).hide(200);
+
 			})
 		</script>
 	</body>
