@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+		<meta http-equiv="Pragma" content="no-cache" />   
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Cache" content="no-cache">
+		<title>Hopuc Note</title>
+		<style>
+			*{
+				outline: 0;
+			}
+			.html,body{
+				margin: 0;
+				width: 100%;
+				height: 100%;
+			}
+			
+			p{
+				line-height: 24px;
+				margin: 0;
+			}
+			
+			.main{
+				padding: 5% 10%;
+				box-sizing: border-box;
+				margin: 0 auto;
+				max-width: 1100px;
+			}
+			
+			#title-text{
+				font-size: 28px;
+				font-weight: 700;
+				margin: 0;
+				padding: 2px 0;
+			}
+			
+			#time-text{
+				color: #888;
+				font-size: 14px;
+				margin: 0;
+				padding: 0 0 8px 0;
+			}
+			
+			#form {
+				margin: 0;
+			}
+			
+			#text{
+				width: 100%;
+				//max-width: 600px;
+				min-height: 20px;
+				line-height: 24px;
+				//margin: auto;
+				padding: 0px 5px;
+				outline: none;
+				color: #555;
+				border: 0;
+				border-left: 1px solid #ccc;
+				font-size: 16px;
+				//word-wrap: break-word;
+			}
+			
+			#text:hover,
+			#text:focus {
+				color: #333;
+				border-left:1px solid #77c;
+			}
+			
+			.btn {
+				color: #555;
+				background: #fff;
+				border: 1px solid #888;
+				font-size: 14px;
+				border-radius: 5px;
+				padding: 3px 8px;
+				margin: 8px 6px 3px 0;
+			}
+			
+			.btn:hover,btn:focus {
+				color: #fff;
+				border: 1px solid #77c;
+				background: #77c;
+				outline: none;
+			}
+			
+			#frame{
+				width: 0;
+				height: 0;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div>
+				<p id="title-text">HOPUC</p>
+				<p id="time-text"></p>
+			</div>
+			<form id="form" method="post" action="note.php" target="frame">
+				<div id="text" tabindex="1"></div>
+
+				<input id="note" type="hidden" name="note" value="" />
+				<input id="time" type="hidden" name="time" value="" />
+				<!-- <input class="btn" type="submit" value="保存" /> -->
+				<button class="btn" id="submit">编辑</button>
+				<!-- <button class="btn" id="submit2">提交2</button> -->
+				<button class="btn" id="copy">复制</button>
+			</form>
+
+			<iframe id="frame" name="frame" frameborder="0"></iframe>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+		<script>
+			$.getJSON("note.txt", function(data) {
+				$("#text").html(data.note);
+				$("#time-text").html(data.time);
+				console.log(data);
+			});
+
+			$('#text').blur(function() {
+				$("#note").val($("#text").html());
+				console.log($("#note").val());
+			});
+
+			/* function zero(n) {
+				n = n.toString();
+				return n.padStart(2, 0)
+			}
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			var second = date.getSeconds();
+			time = year + "-" + zero(month) + "-" + zero(day) + " " + zero(hour) + ":" + zero(minute) + ":" + zero(second);*/
+
+			var date = new Date();
+			date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); // toJSON 的时区补偿
+			time = date.toJSON().substr(0, 19).replace(/[T]/g, ' ');
+
+			console.log(time);
+			$("#time").val(time);
+
+			$("#submit").click(function(e) {
+				if ($("#submit").html() == "编辑") {
+					$("#submit").html("保存");
+					$("#text").attr('contenteditable', 'true');
+				} else {
+					e.preventDefault();
+					var text = $("#text").html();
+					$.ajax({
+						url: "note.php",
+						type: "POST",
+						data: {
+							note: text,
+							time: time
+						},
+						dataType: "text",
+						timeout: 5000, //超时时间设置，单位毫秒
+						success: function(result) {
+							alert("保存成功");
+						},
+						error: function(msg) {
+							alert("保存失败");
+						}
+					});
+					$("#submit").html("编辑");
+					$("#text").attr('contenteditable', 'false');
+					return false;
+				}
+			});
+
+
+			$("#submit2").click(function() {
+				$.post("note.php", {
+						note: text,
+						time: time
+					},
+					function(result) {
+						if (result.status == 0) {
+							return dialog.error(result.message);
+						}
+						if (result.status == 1) {
+							return dialog.success(result.message);
+						}
+					}, 'JSON');
+			});
+
+
+			$('#copy').click(function copy() {
+				var node = document.getElementById("text");
+				var range = document.createRange();
+				range.selectNodeContents(node);
+				var selection = document.getSelection();
+				selection.removeAllRanges();
+				selection.addRange(range);
+				document.execCommand('Copy');
+				alert("复制成功");
+
+				/* var tip = document.getElementById("tip");
+				tip.style.display = "block";
+				setInterval(function() {
+					tip.style.display = "none";
+				}, 2000); */
+			})
+		</script>
+	</body>
+</html>
