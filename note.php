@@ -9,8 +9,7 @@ if(isset($_POST['note'])){
 		);
 		exit(json_encode($reuslt));
 	}else{
-		$userInfo = $_POST;
-		$json = json_encode($userInfo,320);
+		$json = json_encode($_POST,320);
 		$file = fopen('note.txt','w+');
 		fwrite($file,$json);
 		fclose($file);

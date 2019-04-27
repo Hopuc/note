@@ -8,6 +8,7 @@
 		<meta http-equiv="Expires" content="0" />
 		<meta http-equiv="Cache" content="no-cache">
 		<title>Hopuc Note</title>
+		<base target="_blank" />
 		<style>
 			*{
 				outline: 0;
@@ -16,7 +17,7 @@
 				margin: 0;
 				width: 100%;
 				height: 100%;
-				font-family: "microsoft yahei";
+				font-family:"Microsoft YaHei","Arial","黑体","宋体",sans-serif;
 			}
 			
 			p{
@@ -28,10 +29,11 @@
 				color: inherit;
 				text-decoration: none;
 				border-bottom: 1px solid rgba(0,0,0,.4);
+				margin: 0 2px 0 0;
 			}
 			
 			a:hover{
-				border-bottom: 1px solid rgba(0,0,0,.6);
+				border-bottom: 1px solid rgba(0,0,0,.8);
 			}
 			
 			.tipbox {
@@ -42,27 +44,29 @@
 			}
 			
 			#tip {
+				top: 20px;
+				color: #555;
 				padding: 3px 6px;
 				position: fixed;
 				text-align: center;
-				background: rgba(250, 250, 250, .6);
+				background: rgba(250, 250, 250, .9);
 				z-index: 1001;
 				//box-sizing: border-box;
 				display: none;
 				//border: 1px solid #666666;
-				border-radius: 5px;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+				border-radius: 4px;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
 			}
 			
 			.main{
-				padding: 5% 10%;
+				padding: 4% 10%;
 				box-sizing: border-box;
 				margin: 0 auto;
 				max-width: 1100px;
 			}
 			
 			#title-text{
-				font-size: 28px;
+				font-size: 32px;
 				font-weight: 700;
 				margin: 0;
 				padding: 2px 0;
@@ -72,7 +76,7 @@
 				color: #888;
 				font-size: 14px;
 				margin: 0;
-				padding: 0 0 8px 0;
+				padding: 0 0 6px 0;
 			}
 			
 			#form {
@@ -83,37 +87,69 @@
 				width: 100%;
 				min-height: 20px;
 				line-height: 24px;
-				//margin: auto;
 				padding: 0px 5px;
 				outline: none;
-				color: #555;
+				color: #666;
 				border: 0;
 				border-left: 1px solid #ccc;
 				font-size: 16px;
 				word-wrap: break-word;
 			}
 			
-			#text:hover,
-			#text:focus {
+			#text:hover
+			{
+				color: #333;
+				border-left:1px solid #aac;
+			}
+			
+			#text:focus{
 				color: #333;
 				border-left:1px solid #77c;
 			}
 			
 			.btn {
-				color: #555;
+				color: #666;
 				background: #fff;
-				border: 1px solid #888;
+				width: 56px;
+				height: 26px;
+				border: 1px solid #666;
 				font-size: 14px;
-				border-radius: 5px;
-				padding: 3px 8px;
-				margin: 8px 6px 3px 0;
+				//font-weight: 500;
+				border-radius: 26px;
+				//padding: 3px 8px;
+				margin: 8px 4px 3px 0;
+				text-align: center;
 			}
 			
-			.btn:hover,btn:focus {
+			.btn:hover{
+				color: #77c;
+				border: 1px solid #77c;
+				background: #fff;
+				outline: none;
+			}
+			
+			.btn:active{
 				color: #fff;
 				border: 1px solid #77c;
 				background: #77c;
 				outline: none;
+			}
+			
+			.btn-ins{
+				width: 26px;
+				height: 26px;
+				font-size: 16px;
+			}
+			
+			.btn-input{
+				width: 150px;
+				height: 26px;
+				font-size: 14px;
+				padding: 0 10px;
+			}
+			
+			#ins{
+				display: none;
 			}
 			
 			#frame{
@@ -130,18 +166,20 @@
 		<div class="main">
 			<div>
 				<p id="title-text">HOPUC</p>
-				<p id="time-text"></p>
+				<p id="time-text">2019-01-01 08:30</p>
 			</div>
-			<form id="form" method="post" action="note.php" target="frame">
-				<div id="text" tabindex="1"></div>
+			<!-- <form id="form" method="post" action="note.php" target="frame"> -->
+			<div id="text" tabindex="1">空空如也</div>
+			<!-- <input id="time" type="hidden" name="time" value="" />
+				<input id="note" type="hidden" name="note" value="" /> -->
+			<!-- <input class="btn" type="submit" value="保存" /> -->
+			<button class="btn" id="submit">编辑</button>
+			<!-- <button class="btn" id="submit2">提交2</button> -->
+			<button class="btn" id="copy">复制</button>
+			<!-- <button class="btn btn-ins" id="ins">+</button> -->
+			<input class="btn btn-ins" id="ins" type="button" value="+" autocomplete="off" />
 
-				<input id="note" type="hidden" name="note" value="" />
-				<input id="time" type="hidden" name="time" value="" />
-				<!-- <input class="btn" type="submit" value="保存" /> -->
-				<button class="btn" id="submit">编辑</button>
-				<!-- <button class="btn" id="submit2">提交2</button> -->
-				<button class="btn" id="copy">复制</button>
-			</form>
+			<!-- </form> -->
 
 			<iframe id="frame" name="frame" frameborder="0"></iframe>
 		</div>
@@ -153,98 +191,70 @@
 				console.log(data);
 			});
 
-			$("#text").blur(function() {
+			/* $("#text").blur(function() {
+				$("#time").val(time());
 				$("#note").val($("#text").html());
-				console.log($("#note").val());
-			});
+			}); 
 
-			/* function zero(n) {
+			function zero(n) {
 				n = n.toString();
 				return n.padStart(2, 0)
 			}
-			var date = new Date();
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			var day = date.getDate();
-			var hour = date.getHours();
-			var minute = date.getMinutes();
-			var second = date.getSeconds();
-			time = year + "-" + zero(month) + "-" + zero(day) + " " + zero(hour) + ":" + zero(minute) + ":" + zero(second);*/
+			
+			function time(){
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var hour = date.getHours();
+				var minute = date.getMinutes();
+				var second = date.getSeconds();
+				return year + "-" + zero(month) + "-" + zero(day) + " " + zero(hour) + ":" + zero(minute) + ":" + zero(second);
+			}*/
 
-			var date = new Date();
-			date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); // toJSON 的时区补偿
-			time = date.toJSON().substr(0, 19).replace(/[T]/g, ' ');
+			function tip(e) {
+				$("#tip").text(e).show(200).delay(2000).hide(200);
+			}
 
-			console.log(time);
-			$("#time").val(time);
-
-			/* $("#submit").click(function(e) {
-				e.preventDefault();
-				if ($("#submit").text() == "编辑") {
-					$("#submit").text("保存");
-					$("#text").attr("contenteditable", "true");
-				} else {
-					var text = $("#text").html();
-					$.ajax({
-						url: "note.php",
-						type: "POST", 
-						data: {
-							note: text,
-							time: time
-						},
-						dataType: "json",
-						timeout: 5000, //超时时间设置，单位毫秒
-						success: function(result) {
-							//alert("成功");
-							console.log(result);
-							if(result.status == 1){
-								$("#tip").text(result.message).show(200).delay(2000).hide(200);
-							}else{
-								$("#tip").text(result.message).show(200).delay(2000).hide(200);
-							}
-						},
-						error: function(msg) {
-							//alert("失败");
-							console.log(msg);
-							$("#tip").text("连接失败").show(200).delay(2000).hide(200);
-						}
-					});
-					$("#submit").text("编辑");
-					$("#text").attr("contenteditable", "false");
-					return false;
-				}
-			}); */
-
+			function timenow() {
+				var date = new Date();
+				date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); // toJSON 的时区补偿
+				return date.toJSON().substr(0, 19).replace(/[T]/g, ' ');
+			}
 
 			$("#submit").click(function(e) {
 				e.preventDefault();
 				if ($("#submit").text() == "编辑") {
 					$("#submit").text("保存");
 					$("#text").attr("contenteditable", "true");
+					$("#ins").show();
 				} else {
 					var text = $("#text").html();
+					var time = timenow();
 					$.post("note.php", {
+							time: time,
 							note: text,
-							time: time
 						},
 						function(result) {
 							console.log(result);
 							if (result.status == 0) {
-								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+								tip(result.message);
 							}
 							if (result.status == 1) {
-								$("#tip").text(result.message).show(200).delay(2000).hide(200);
+								tip(result.message);
+								console.log(time);
+								$("#time-text").html(time);
 							}
 						}, "json"
 					);
 					$("#submit").text("编辑");
 					$("#text").attr("contenteditable", "false");
+					$("#ins").hide();
 					return false;
 				}
 			});
 
-
-			$("#copy").click(function copy(e) {
+			$("#copy").click(function (e) {
 				e.preventDefault();
 				var node = document.getElementById("text");
 				var range = document.createRange();
@@ -253,17 +263,57 @@
 				selection.removeAllRanges();
 				selection.addRange(range);
 				document.execCommand('Copy');
+				tip("复制成功");
+			});
 
-				/* alert("复制成功");
-				var tip = document.getElementById("tip");
-				tip.style.display = "block";
-				setInterval(function() {
-					tip.style.display = "none";
-				}, 2000); */
+			$("#ins").click(function () {
+				if ($("#ins").attr("type") == "button") {
+					$("#ins").attr({
+						"value": "",
+						"class": "btn btn-input",
+						"type": "text",
+						"placeholder": "请输入链接",
+					});
+					$("#ins").val("");
 
-				$("#tip").text("复制成功").show(200).delay(2000).hide(200);
+				}  else{
+					return false;
+				} 
+			});
+			
+			$("#ins").blur(function (){
+				if ($("#ins").attr("type") == "text") {
+					$("#ins").attr({
+						"class": "btn btn-ins",
+						"type": "button",
+						"placeholder": "",
+					});
+					$("#ins").val("+");
+				}else{
+					return false;
+				}
+			});
 
-			})
+			$("#ins").keypress(function(e) {
+				//e.preventDefault();
+				if (e.which == 13||e.keyCode == 13) {
+					url = $("#ins").val();
+					console.log(url);
+					if (url != null && url != "") {
+						//var url = 'http://hopuc.com';
+						if (url.substr(0, 7).toLowerCase() == "http://" || url.substr(0, 8).toLowerCase() == "https://") {
+							$("#text").append('<br><a href="' + url + '">' + url + '</a>&nbsp;');
+						} else {
+							url = "http://" + url;
+							$("#text").append('<br><a href="' + url + '">' + url + '</a>&nbsp;');
+						}
+					} else {
+						tip("未输入内容");
+					}
+				}
+			});
+
+			//var url = prompt("请输入链接", "");
 		</script>
 	</body>
 </html>
