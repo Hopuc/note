@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Hopuc Note 2019-04-30 -->
+		<!-- Hopuc Note 2019-05-12 -->
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
 		<meta http-equiv="Pragma" content="no-cache" />   
@@ -11,190 +11,550 @@
 		<title>Hopuc Note</title>
 		<base target="_blank" />
 		<style>
-			*{
+			* {
 				outline: 0;
-				font-family:"Microsoft YaHei","微软雅黑","Arial","SimHei","黑体",sans-serif;
+				box-sizing: border-box;
+				font-family: "Microsoft YaHei", "微软雅黑", "Arial", "SimHei", "黑体", sans-serif;
 			}
-			.html,body{
+
+			.html,
+			body {
 				margin: 0;
 				width: 100%;
 				height: 100%;
 			}
-			
-			p{
-				line-height: 24px;
-				margin: 0;
+
+			:hover,
+			:focus {
+				transition: background .3s;
 			}
-			
-			a{
-				color: inherit;
-				text-decoration: none;
-				border-bottom: 1px solid rgba(0,0,0,.4);
-				margin: 0 2px 0 0;
-			}
-			
-			a:hover{
-				border-bottom: 1px solid rgba(0,0,0,.8);
-			}
-			
-			.tipbox {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			
-			#tip {
-				top: 16px;
-				color: #555;
-				font-size: 14px;
-				padding: 4px 10px;
-				position: fixed;
-				text-align: center;
-				background: rgba(250, 250, 250, .9);
-				z-index: 1001;
-				box-sizing: border-box;
-				display: none;
-				border: 0 solid #fff;
-				border-radius: 3px;
-				box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-			}
-			
-			.main{
-				padding: 4% 10%;
-				box-sizing: border-box;
-				margin: 0 auto;
-				max-width: 1100px;
-			}
-			
-			#title-text{
-				font-size: 32px;
-				font-weight: 700;
-				margin: 2px 0;
-			}
-			
-			#time-text{
-				color: #888;
-				font-size: 14px;
-				margin: 5px 0;
-			}
-			
-			#form {
-				margin: 0;
-			}
-			
-			#text{
-				width: 100%;
-				min-height: 20px;
-				line-height: 24px;
-				padding: 0px 5px;
-				outline: none;
-				color: #444;
-				border: 0 solid #fff;
-				border-left: 1px solid #ccc;
-				font-size: 18px;
-				word-wrap: break-word;
-				box-sizing: border-box;
-			}
-			
+
 			::selection {
 				color: #fff;
 				background: #77c;
 			}
-			
-			#text:hover,
-			#text:focus{
+
+			.main {
+				padding: 2% 10%;
+				box-sizing: border-box;
+				margin: 0 auto;
+				max-width: 1100px;
+			}
+
+			#title-text {
+				font-size: 32px;
+				font-weight: 700;
+				margin: 2px 0;
+			}
+
+			#time-text {
+				color: #888;
+				font-size: 14px;
+				margin: 4px 0;
+			}
+
+			#form {
+				margin: 0;
+			}
+
+			#note {
+				width: 100%;
+				min-height: 20px;
+				line-height: 26px;
+				padding: 0px 5px;
+				outline: none;
+				color: #333;
+				border: 0 solid #fff;
+				border-left: 1.3px solid #eee;
+				font-size: 18px;
+				transition: all .5s;
+				word-wrap: break-word;
+				box-sizing: border-box;
+			}
+
+			#note:hover,
+			#note:focus {
 				color: #111;
 			}
 			
-			.text-border{
-				/* border: 1px solid #eee !important; */
-				border-left:1px solid #77c !important;
+			#note *{
+				max-width: 99% !important;
 			}
 			
+			#note img{
+				max-width: 99% !important;
+				max-height: 80vh !important;
+				margin: 3px 0;
+			}
+
+			#note p {
+				margin: 0;
+			}
+
+			#note a {
+				color: #333;
+				text-decoration: none;
+				border-bottom: 1px solid #555;
+				margin: 0 2px 0 0;
+			}
+
+			#note a:hover {
+				color: #148;
+				border-bottom: 1px solid #148;
+			}
+			
+			#note iframe{
+				width: 76vw;
+				height: 42.75vw;
+				max-width: 99% !important;
+				max-height: 495px;
+				margin: 3px 0;
+			}
+			
+			#note video{
+				max-width: 99% !important;
+			}
+
+			.text-border {
+				/* border: 1px solid #eee !important; */
+				border-left: 1.3px solid #77c !important;
+			}
+
+			.control {
+				/* font-size: 0; */
+				margin: 8px 0 3px 0;
+			}
+
 			.btn {
-				color: #666;
+				color: #555;
 				background: #fff;
-				width: 56px;
-				height: 28px;
-				border: 1px solid #666;
+				width: 60px;
+				height: 30px;
+				border: 1px solid #555;
 				font-size: 15px;
-				//font-weight: 600;
-				border-radius: 28px;
-				//padding: 3px 8px;
-				margin: 8px 4px 3px 0;
+				/* font-weight: 600; */
+				border-radius: 15px;
+				margin-right: 3px;
 				text-align: center;
 				box-sizing: border-box;
+				vertical-align: top;
+				cursor: pointer;
 			}
-			
-			.btn:hover{
+
+			.btn:hover {
 				color: #77c;
 				border: 1px solid #77c;
 				background: #fff;
 				outline: none;
 			}
-			
-			.btn:active{
+
+			.btn:active {
 				color: #fff;
 				border: 1px solid #77c;
 				background: #77c;
 				outline: none;
 			}
 			
-			.btn-ins{
-				width: 28px;
-				height: 28px;
+			.btn-submit {
+				width: 92px;
+				margin: 0;
 			}
 			
-			.btn-input{
-				width: 160px;
-				height: 28px;
-				font-size: 15px;
-				padding: 0 10px;
+			#editbox{
+				display: inline-block;
 			}
 			
-			#ins{
+			#edithtml{
 				display: none;
-				transition: all .3s;
+				-webkit-appearance: none;
 			}
 			
-			#frame{
-				width: 0;
-				height: 0;
+			.htmlicon{
+				width: 30px;
+				height: 30px;
+				border: 1px solid #555;
+				background: #fff;
+				border-radius: 15px;
+				outline: none;
+				position: relative;
+				margin: 0 3px 0 0;
+				display: inline-block;
+			}
+			
+			.htmlicon:after {
+				color: #555;
+				content: '\003C\002F\003E';
+				position: absolute;
+				font-size: 13px;
+				left: 50%;
+				top: 49%;
+				transform: translate(-50%, -50%);
+			}
+			
+			.htmlicon:hover{
+				border: 1px solid #77c;
+			}
+			
+			.htmlicon:hover::after{
+				color: #77c;
+			}
+
+			#edithtml:checked + .htmlicon {
+				border: 1px solid #77c;
+				background: #77c;
+			}
+
+			#edithtml:checked + .htmlicon::after {
+				color: #fff;
+			}
+
+			.add {
+				border: 1px solid #555;
+				width: 30px;
+				height: 30px;
+				border-radius: 15px;
+				color: #555;
+				background: #fff;
+				cursor: pointer;
+				position: relative;
+				display: inline-block;
+				box-sizing: border-box;
+			}
+
+			.add::before,
+			.add::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.add::before {
+				width: 13px;
+				border-top: 1px solid;
+			}
+
+			.add::after {
+				height: 13px;
+				border-left: 1px solid;
+			}
+
+			.add:hover {
+				color: #77c;
+				border: 1px solid #77c;
+			}
+			
+			.add:active {
+				color: #fff;
+				border: 1px solid #77c;
+				background: #77c;
+			}
+			
+			.tipbox {
+				/* display: flex;
+				justify-content: center;
+				align-items: center;
+				align-items: flex-start;
+				flex-direction: column; */
+				z-index: 1099;
+				top: 0;
+				left: 0;
+				right: 0;
+				margin: 12px auto;
+				position: fixed;
+				pointer-events: none;
+			}
+
+			.tip {
+				color: #555;
+				font-size: 14px;
+				padding: 4px 10px;
+				margin: 4px auto;
+				text-align: center;
+				background: rgba(255, 255, 255, .98);
+				z-index: 1099;
+				box-sizing: border-box;
+				border: 0 solid #fff;
+				border-radius: 3px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+				pointer-events: auto;
+				transition: top .2s cubic-bezier(.2,.8,.3,1);
+				
+				margin: 4px auto;
+				display: table;
+			}
+
+			#mask {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, .3);
+				z-index: 1009;
+				//filter: blur(1px);
+			}
+
+			.close {
+				position: absolute;
+				right: 32px;
+				top: 32px;
+				width: 32px;
+				height: 32px;
+			}
+
+			.close:before,
+			.close:after {
+				position: absolute;
+				left: 15px;
+				content: ' ';
+				height: 32px;
+				width: 1.6px;
+				background-color: #fff;
+			}
+
+			.close:before {
+				transform: rotate(45deg);
+			}
+
+			.close:after {
+				transform: rotate(-45deg);
+			}
+			
+			.close:hover::before,
+			.close:hover::after{
+				background-color: #77c;
+			}
+
+			#container {
+				margin: 22vh auto;
+				width: 80vw;
+				//height: 40vh;
+				max-width: 520px;
+				background: rgba(255, 255, 255, 1);
+				border-radius: 8px;
+				box-shadow: 0 1px 3px rgba(0,0,0,.5);
+			}
+
+			#tab {
+				width: 100%;
+				height: 46px;
+				background: #eee;
+				border-bottom: 1px solid #eee;
+				border-radius: 8px 8px 0 0;
+			}
+
+			#tab li {
+				color: #555;
+				width: 33.33%;
+				float: left;
+				line-height: 46px;
+				text-align: center;
+				list-style: none;
+				cursor:pointer;
+				display: inline-block;
+			}
+			
+			#tab li:hover{
+				color: #77c;
+			}
+			
+			#tab .on{
+				color: #77c;
+			}
+			
+			#tab-box{
+				padding: 4px 3% 8px 3%;
+				position: relative;
+			}
+			
+			.tab-con{
+				display: none;
+			}
+			
+			.group{
+				margin: 12px 0 8px 0;
+			}
+			
+			.group p{
+				margin: 6px 0;
+			}
+			
+			.group input,
+			.group textarea{
+				width: 100%;
+				padding: 6px 6px;
+				border: 1px solid #aaa;
+				border-radius: 3px;
+				font-size: 14px;
+				box-sizing: border-box;
+			}
+			
+			.group input{
+				height: 34px;
+			}
+			
+			.group input:focus,
+			.group textarea:focus{
+				border: 1px solid #77c;
+			}
+			
+			.group textarea{
+				height: 105px;
+				resize:none;
+			}
+			
+			/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+			.group textarea::-webkit-scrollbar{
+				width: 4px;
+				//background-color: #F5F5F5;
+			}
+				 
+			/*定义滚动条轨道 内阴影+圆角*/
+			.group textarea::-webkit-scrollbar-track{
+				border-radius: 2px;
+				background-color: rgba(240,240,240,.3);
+			}
+				 
+			/*定义滑块 内阴影+圆角*/
+			.group textarea::-webkit-scrollbar-thumb{
+				border-radius: 2px;
+				//box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+				background-color: #77c;
+			}
+			
+			.ins-submit{
+				width: 100%;
+				//height: 100%;
+				//bottom: 0;
+				padding: 6px 0;
+				text-align: right;
+				box-sizing: border-box;
+			}
+			
+			.ui-upload {
+				padding: 4px 10px;
+				height: 30px;
+				line-height: 20px;
+				position: relative;
+				cursor: pointer;
+				color: #666;
+				background: #fafafa;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				overflow: hidden;
+				display: inline-block;
+			}
+
+			/* .ui-upload  input {
+				position: absolute;
+				font-size: 100px;
+				right: 0;
+				top: 0;
+				opacity: 0;
+				filter: alpha(opacity=0);
+				cursor: pointer
+			} */
+
+			.ui-upload:hover {
+				color: #333;
+				background: #eee;
+				border-color: #ccc;
 			}
 			
 		</style>
 	</head>
 	<body>
-		<div class="tipbox">
-			<div id="tip"></div>
-		</div>
+
 		<div class="main">
 			<div>
 				<p id="title-text">HOPUC</p>
 				<p id="time-text">2019-01-01 08:30</p>
 			</div>
-			<div id="text" tabindex="1" spellcheck="false">Hello!<div>Hopuc Note</div></div>
-			<button class="btn" id="submit">编辑</button>
-			<button class="btn" id="copy">复制</button>
-			<input class="btn btn-ins" id="ins" type="button" value="+" autocomplete="off" />
+			<div id="note" tabindex="1" spellcheck="false">Hello!<div>Hopuc Note</div>
+			</div>
+			<div class="control">
+				<button class="btn" id="submit">编辑</button>
+				<button class="btn" id="copy">复制</button>
+				<div id="editbox" style="display: none;">
+					<!-- <button class="btn" id="edithtml">&lt;/&gt;</button> -->
+					<!-- <input type="checkbox" class="htmlicon" id="edithtml" /> -->
+					<input type="checkbox" class="" id="edithtml" />
+					<label for="edithtml" class="htmlicon"></label>
+					<a class="add" id="add"></a>
+				</div>
+			</div>
 		</div>
+
+		<div class="tipbox">
+			<div class="tip" id="tip" style="display: none;"></div>
+			<!-- <div id="tip">hahah2</div>
+			<div id="tip">hahah3</div> -->
+		</div>
+
+		<div id="mask">
+			<div id="container">
+				<div id="tab">
+					<li class="on">链接</li>
+					<li>图片</li>
+					<li>HTML</li>
+				</div>
+				<div id="tab-box">
+					<div class="tab-con" id="tab-link" style="display: block;">
+						<div class="group">
+							<p>链接地址</p>
+							<input type="text" class="link" id="url" value="" />
+						</div>
+						<div class="group">
+							<p>显示文本</p>
+							<input type="text" class="link" id="linkText" value="" />
+						</div>
+						<div class="ins-submit">
+							<button class="btn btn-submit" id="btn-link">插入链接</button>
+						</div>
+					</div>
+					<div class="tab-con" id="tab-pic">
+						<div class="group">
+							<p>图片链接</p>
+							<input type="text" id="picUrl" value="" />
+						</div>
+						<div class="group">
+							<p>上传图片</p>
+							<input type="file" id="pic" style="display: none;" />
+							<span class="ui-upload" onclick="pic.click()">点击上传图片</span>
+						</div>
+						<div class="ins-submit">
+							<button class="btn btn-submit" id="btn-pic">插入图片</button>
+						</div>
+					</div>
+					<div class="tab-con" id="tab-html">
+						<div class="group">
+							<p>输入HTML内容</p>
+							<textarea id="html"></textarea>
+						</div>
+						<div class="ins-submit">
+							<button class="btn btn-submit" id="btn-html">插入HTML</button>
+						</div>
+					</div>
+				</div>
+				<a class="close"></a>
+			</div>
+		</div>
+
 		<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
 		<script>
 			$.getJSON("noteapi.php", function(data) {
 				$("#time-text").html(data.time);
-				$("#text").html(data.note);
-				//window.token = data.token;
+				$("#note").html(data.note);
 				console.log(data);
-			}).fail(function(){
-				tip("云端获取失败，请刷新页面");
+			}).fail(function() {
+				tip("云端数据获取失败");
 			});
 
-			/* $("#text").blur(function() {
-				$("#time").val(time());
-				$("#note").val($("#text").html());
-			}); 
-
-			function zero(n) {
+			/*function zero(n) {
 				n = n.toString();
 				return n.padStart(2, 0)
 			}
@@ -209,9 +569,16 @@
 				var second = date.getSeconds();
 				return year + "-" + zero(month) + "-" + zero(day) + " " + zero(hour) + ":" + zero(minute) + ":" + zero(second);
 			}*/
-
+			
+			var n = 1;
 			function tip(e) {
-				$("#tip").text(e).show(200).delay(2000).hide(200);
+				var i='<div class="tip" id="tip'+n+'"></div>';
+				$(".tipbox").append(i);
+				$("#tip"+n).text(e).fadeIn(800).delay(1500).fadeOut(800);
+				$("#tip"+(n-2)).fadeOut(500);
+				$("#tip"+(n-3)).remove();
+				//console.log(n);
+				n = n+1;
 			}
 
 			function timenow() {
@@ -224,42 +591,48 @@
 				e.preventDefault();
 				if ($("#submit").text() == "编辑") {
 					$("#submit").text("保存");
-					$("#text").attr("contenteditable", "true");
-					$("#text").addClass("text-border");
-					$("#ins").show(200);
+					$("#note").attr("contenteditable", "true").addClass("text-border");
+					$("#editbox").show(200);
+					//$("#add").css("display", "inline-block");
 					tip("编辑模式")
 				} else {
-					$("#tip").text("正在保存").show(200);
-					var text = $("#text").html();
+					tip("正在保存");
+					if ($("#edithtml").is(':checked')) {
+						$("#note").html($("#note").text());
+						$("#edithtml").prop("checked", false);
+					}
+					var note = $("#note").html();
 					var time = timenow();
 					$.post("noteapi.php", {
 							time: time,
-							note: text,
+							note: note,
 						},
 						function(result) {
 							console.log(result);
 							if (result.status == 0) {
+								$("#tip"+(n-1)).remove();
 								tip(result.message);
 							}
 							if (result.status == 1) {
+								$("#tip"+(n-1)).remove();
 								tip(result.message);
 								$("#time-text").html(time);
 							}
 						}, "json"
 					).fail(function() {
+						$("#tip"+(n-1)).remove();
 						tip("保存失败");
 					});
 					$("#submit").text("编辑");
-					$("#text").attr("contenteditable", "false");
-					$("#text").removeClass("text-border");
-					$("#ins").hide(200);
+					$("#note").attr("contenteditable", "false").removeClass("text-border");
+					$("#editbox").hide(200);
 					return false;
 				}
 			});
 
 			$("#copy").click(function(e) {
 				e.preventDefault();
-				var node = document.getElementById("text");
+				var node = document.getElementById("note");
 				var range = document.createRange();
 				range.selectNodeContents(node);
 				var selection = document.getSelection();
@@ -269,68 +642,193 @@
 				tip("复制成功");
 			});
 
-			$("#ins").click(function() {
-				if ($("#ins").attr("type") == "button") {
-					$("#ins").animate({
-						width: "160px"
-					}, 300);
-					$("#ins").attr({
-						"value": "",
-						"class": "btn btn-input",
-						"type": "text",
-						"placeholder": "请输入链接",
-					});
-					$("#ins").val("");
 
+			$("#edithtml").click(function(e) {
+				if ($("#edithtml").is(':checked')) {
+					$("#note").text($("#note").html());
+					tip("HTML编辑模式");
 				} else {
-					return false;
+					$("#note").html($("#note").text());
+					tip("普通编辑模式");
 				}
 			});
 
-			$("#ins").blur(function() {
-				if ($("#ins").attr("type") == "text") {
-					$("#ins").animate({
-						width: "28px"
-					}, 300);
-					$("#ins").attr({
-						"class": "btn btn-ins",
-						"type": "button",
-						"placeholder": "",
-					});
-					$("#ins").val("+");
-				} else {
-					return false;
+
+			$("#add").click(function() {
+				if ($("#edithtml").is(':checked')) {
+					$("#note").html($("#note").text());
+					$("#edithtml").prop("checked", false);
 				}
+				$("#mask").show(200);
 			});
 
-			$("#ins").keypress(function(e) {
-				//e.preventDefault();
-				if (e.which == 13 || e.keyCode == 13) {
-					url = $("#ins").val();
-					console.log(url);
-					if (url != null && url != "") {
-						//var url = 'http://hopuc.com';
+			$(".close").click(function() {
+				$("#mask").hide(200);
+			});
+
+			$("#tab>li").click(function() {
+				//通过 .index()方法获取元素下标，从0开始，赋值给某个变量
+				var n = $(this).index();
+				//让内容框的第 _index 个显示出来，其他的被隐藏
+				$("#tab-box>div").eq(n).show().siblings().hide();
+				//改变选中时候的选项框的样式，移除其他几个选项的样式
+				$(this).addClass("on").siblings().removeClass("on");
+			});
+
+
+			$("#btn-link").click(function() {
+				var url = $("#url").val();
+				var linkText = $("#linkText").val();
+				if (url != null && url != "") {
+					if (linkText != null && linkText != "") {
 						if (url.substr(0, 7).toLowerCase() == "http://" || url.substr(0, 8).toLowerCase() == "https://") {
-							$("#text").append('<a href="' + url + '">' + url + '</a>&nbsp;');
+							$("#note").append('<a href="' + url + '">' + linkText + '</a>');
 						} else {
 							url = "http://" + url;
-							$("#text").append('<a href="' + url + '">' + url + '</a>&nbsp;');
+							$("#note").append('<a href="' + url + '">' + linkText + '</a>');
 						}
 					} else {
-						tip("未输入内容");
+						if (url.substr(0, 7).toLowerCase() == "http://" || url.substr(0, 8).toLowerCase() == "https://") {
+							$("#note").append('<a href="' + url + '">' + url + '</a>');
+						} else {
+							url = "http://" + url;
+							$("#note").append('<a href="' + url + '">' + url + '</a>');
+						}
 					}
+					tip("链接已插入");
+					$("#mask").hide(200);
+				} else {
+					tip("链接地址不能为空");
+				}
+			});
+
+			$("#btn-pic").click(function() {
+				var picUrl = $("#picUrl").val();
+				var pic = $("#pic").val();
+				if (picUrl != null && picUrl != "") {
+					if (picUrl.substr(0, 7).toLowerCase() == "http://" || picUrl.substr(0, 8).toLowerCase() == "https://") {
+						$("#note").append('<img src="' + picUrl + '">');
+					} else {
+						picUrl = "http://" + picUrl;
+						$("#note").append('<img src="' + picUrl + '">');
+					}
+					tip("图片已插入");
+					$("#mask").hide(200);
+				} else if (pic != null && pic != "") {
+					/* var formData = new FormData();
+					formData.append('smfile', $("#pic").files[0]);
+					$.ajax({
+						url: 'https://sm.ms/api/upload',
+						type: 'POST',
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							console.log(data);
+							$("#picUrl").val(data.data.url);
+						},
+						error: function(data) {
+							console.log(data);
+							tip("上传失败");
+						}
+					});
+					console.log("upload"); */
+					tip("正在上传中");
+				} else {
+					tip("图片链接不能为空");
+				}
+			});
+
+			$("#btn-html").click(function() {
+				var html = $("#html").val();
+				if (html != null && html != "") {
+					$("#note").append(html);
+					tip("HTML已插入");
+					$("#mask").hide(200);
+				} else {
+					tip("HTML内容不能为空");
+				}
+				console.log(html);
+			});
+
+			$("#pic").change(function() {
+				
+				var path = $(this).val();
+				var imgstr = path.toLowerCase().split('.');
+				var imgtype = imgstr[imgstr.length - 1];
+				//console.log(imgtype);
+				if (imgtype != "png" && imgtype != "jpg" && imgtype != "jpeg" && imgtype != "gif" && imgtype != "bmp") {
+					tip("不支持该文件类型");
+					return false;
+				} else {
+					var arr = path.split('\\');
+					var fileName = arr[arr.length - 1];
+					$(".ui-upload").text(fileName);
+				}
+				if(this.files[0].size/1024 > 5120){
+					tip("文件不能大于5MB");
+					return false;
+				}
+				//console.log(this.files[0].size);
+				var formData = new FormData();
+				formData.append('smfile', this.files[0]);
+				$.ajax({
+					url: 'https://sm.ms/api/upload',
+					type: 'POST',
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false
+				}).done(function(data){
+					console.log(data);
+					if (data.code == "error") {
+						tip(data.msg);
+					} else if ((data.code == "success")) {
+						$("#picUrl").val(data.data.url);
+					}
+				}).fail(function(data){
+					console.log(data);
+					tip("上传失败");
+				});
+			});
+
+			$("#mask").click(function(e) {
+				$("#mask").hide(200);
+			});
+
+			$("#container").click(function(e) {
+				e.stopPropagation();
+			});
+
+			$(".link").keypress(function(e) {
+				//e.preventDefault();
+				if (e.which == 13 || e.keyCode == 13) {
+					$("#btn-link").click();
+				}
+			});
+
+			$("#picUrl").keypress(function(e) {
+				//e.preventDefault();
+				if (e.which == 13 || e.keyCode == 13) {
+					$("#btn-pic").click();
 				}
 			});
 
 			$(document).keydown(function(e) {
-				if (e.ctrlKey && e.which == 83||e.ctrlKey && e.keyCode == 83) {
+				if (e.ctrlKey && e.which == 83 || e.metaKey && e.which == 83) {
 					e.preventDefault();
 					$("#submit").click();
 				}
 			});
-			
-			console.log("Hopuc Note 2019-04-30");
-					
+
+			/* $(document).ready(function() {
+				$("iframe").each(function() {
+					$(this).attr("allowfullscreen", "true");
+				});
+			}); */
+
+			console.log("Hopuc Note 2019-05-12");
 		</script>
 	</body>
 </html>
