@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Hopuc Note 2019-05-12 -->
+		<!-- Hopuc Note 2019-10-12 -->
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
 		<meta http-equiv="Pragma" content="no-cache" />   
@@ -40,6 +40,10 @@
 				margin: 0 auto;
 				max-width: 1100px;
 			}
+			
+			#title{
+				margin-bottom: 3px;
+			}
 
 			#title-text {
 				font-size: 32px;
@@ -50,7 +54,21 @@
 			#time-text {
 				color: #888;
 				font-size: 14px;
+				line-height: 18px;
 				margin: 4px 0;
+			}
+			
+			#dot{
+				position: fixed;
+				display: block;
+				top: 3px;
+				right: 3px;
+				//line-height: 18px;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: #888;
+				//vertical-align: center;
 			}
 
 			#form {
@@ -123,6 +141,7 @@
 			.control {
 				/* font-size: 0; */
 				margin: 8px 0 3px 0;
+				user-select: none; 
 			}
 
 			.btn {
@@ -179,13 +198,14 @@
 				position: relative;
 				margin: 0 3px 0 0;
 				display: inline-block;
+				box-sizing: border-box;
 			}
 			
 			.htmlicon:after {
 				color: #555;
 				content: '\003C\002F\003E';
 				position: absolute;
-				font-size: 13px;
+				font-size: 12px;
 				left: 50%;
 				top: 49%;
 				transform: translate(-50%, -50%);
@@ -231,12 +251,12 @@
 			}
 
 			.add::before {
-				width: 13px;
+				width: 12px;
 				border-top: 1px solid;
 			}
 
 			.add::after {
-				height: 13px;
+				height: 12px;
 				border-left: 1px solid;
 			}
 
@@ -280,7 +300,6 @@
 				box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 				pointer-events: auto;
 				transition: top .2s cubic-bezier(.2,.8,.3,1);
-				
 				margin: 4px auto;
 				display: table;
 			}
@@ -380,6 +399,7 @@
 			}
 			
 			.group p{
+				color: #555;
 				margin: 6px 0;
 			}
 			
@@ -387,7 +407,7 @@
 			.group textarea{
 				width: 100%;
 				padding: 6px 6px;
-				border: 1px solid #aaa;
+				border: 1px solid #ccc;
 				border-radius: 3px;
 				font-size: 14px;
 				box-sizing: border-box;
@@ -470,9 +490,10 @@
 	<body>
 
 		<div class="main">
-			<div>
+			<div id="title">
 				<p id="title-text">HOPUC</p>
-				<p id="time-text">2019-01-01 08:30</p>
+				<i id="dot"></i>
+				<span id="time-text">2019-01-01 08:30</span>
 			</div>
 			<div id="note" tabindex="1" spellcheck="false">Hello!<div>Hopuc Note</div>
 			</div>
@@ -549,9 +570,11 @@
 			$.getJSON("noteapi.php", function(data) {
 				$("#time-text").html(data.time);
 				$("#note").html(data.note);
+				$("#dot").css("background", "#3c3");
 				console.log(data);
 			}).fail(function() {
 				tip("云端数据获取失败");
+				$("#dot").css("background", "#c33");
 			});
 
 			/*function zero(n) {
@@ -569,16 +592,17 @@
 				var second = date.getSeconds();
 				return year + "-" + zero(month) + "-" + zero(day) + " " + zero(hour) + ":" + zero(minute) + ":" + zero(second);
 			}*/
-			
+
 			var n = 1;
+
 			function tip(e) {
-				var i='<div class="tip" id="tip'+n+'"></div>';
+				var i = '<div class="tip" id="tip' + n + '"></div>';
 				$(".tipbox").append(i);
-				$("#tip"+n).text(e).fadeIn(800).delay(1500).fadeOut(800);
-				$("#tip"+(n-2)).fadeOut(500);
-				$("#tip"+(n-3)).remove();
+				$("#tip" + n).text(e).fadeIn(800).delay(1500).fadeOut(800);
+				$("#tip" + (n - 2)).fadeOut(500);
+				$("#tip" + (n - 3)).remove();
 				//console.log(n);
-				n = n+1;
+				n = n + 1;
 			}
 
 			function timenow() {
@@ -597,6 +621,7 @@
 					tip("编辑模式")
 				} else {
 					tip("正在保存");
+					$("#dot").css("background", "#888");
 					if ($("#edithtml").is(':checked')) {
 						$("#note").html($("#note").text());
 						$("#edithtml").prop("checked", false);
@@ -610,18 +635,20 @@
 						function(result) {
 							console.log(result);
 							if (result.status == 0) {
-								$("#tip"+(n-1)).remove();
+								$("#tip" + (n - 1)).remove();
 								tip(result.message);
 							}
 							if (result.status == 1) {
-								$("#tip"+(n-1)).remove();
-								tip(result.message);
+								$("#tip" + (n - 1)).remove();
 								$("#time-text").html(time);
+								tip(result.message);
+								$("#dot").css("background", "#3c3");
 							}
 						}, "json"
 					).fail(function() {
-						$("#tip"+(n-1)).remove();
+						$("#tip" + (n - 1)).remove();
 						tip("保存失败");
+						$("#dot").css("background", "#c33");
 					});
 					$("#submit").text("编辑");
 					$("#note").attr("contenteditable", "false").removeClass("text-border");
@@ -753,7 +780,7 @@
 			});
 
 			$("#pic").change(function() {
-				
+
 				var path = $(this).val();
 				var imgstr = path.toLowerCase().split('.');
 				var imgtype = imgstr[imgstr.length - 1];
@@ -766,7 +793,7 @@
 					var fileName = arr[arr.length - 1];
 					$(".ui-upload").text(fileName);
 				}
-				if(this.files[0].size/1024 > 5120){
+				if (this.files[0].size / 1024 > 5120) {
 					tip("文件不能大于5MB");
 					return false;
 				}
@@ -780,14 +807,14 @@
 					cache: false,
 					contentType: false,
 					processData: false
-				}).done(function(data){
+				}).done(function(data) {
 					console.log(data);
 					if (data.code == "error") {
 						tip(data.msg);
 					} else if ((data.code == "success")) {
 						$("#picUrl").val(data.data.url);
 					}
-				}).fail(function(data){
+				}).fail(function(data) {
 					console.log(data);
 					tip("上传失败");
 				});
