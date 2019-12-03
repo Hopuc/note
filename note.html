@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Hopuc Note 2019-10-12 -->
+		<!-- Hopuc Note 2019-12-02 -->
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
 		<meta http-equiv="Pragma" content="no-cache" />   
@@ -801,18 +801,25 @@
 				var formData = new FormData();
 				formData.append('smfile', this.files[0]);
 				$.ajax({
-					url: 'https://sm.ms/api/upload',
+					url: 'https://sm.ms/api/v2/upload',
 					type: 'POST',
 					data: formData,
 					cache: false,
 					contentType: false,
-					processData: false
+					processData: false,
+					dataType: 'json',
 				}).done(function(data) {
 					console.log(data);
-					if (data.code == "error") {
-						tip(data.msg);
-					} else if ((data.code == "success")) {
+					if (data.success == 1) {
 						$("#picUrl").val(data.data.url);
+						tip("上传成功");
+					} else if (data.code == 'image_repeated') {
+						$("#picUrl").val(data.images);
+						tip("上传成功");
+					} else if (data.code == 'error'){
+						tip("上传错误");
+					}else{
+						tip(data.message);
 					}
 				}).fail(function(data) {
 					console.log(data);
@@ -855,7 +862,7 @@
 				});
 			}); */
 
-			console.log("Hopuc Note 2019-05-12");
+			console.log("Hopuc Note 2019-12-02");
 		</script>
 	</body>
 </html>
