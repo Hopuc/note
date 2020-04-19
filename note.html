@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Hopuc Note 2019-12-23 -->
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
-		<meta http-equiv="Pragma" content="no-cache" />   
-		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Pragma" content="no-cache">   
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
 		<meta http-equiv="Cache" content="no-cache">
 		<title>Hopuc Note</title>
 		<base target="_blank" />
@@ -21,7 +20,6 @@
 			body {
 				margin: 0;
 				width: 100%;
-				height: 100%;
 			}
 
 			:hover,
@@ -40,9 +38,9 @@
 				margin: 0 auto;
 				max-width: 1100px;
 			}
-			
-			#title{
-				margin-bottom: 3px;
+
+			#title {
+				user-select: none;
 			}
 
 			#title-text {
@@ -57,12 +55,12 @@
 				line-height: 18px;
 				margin: 4px 0;
 			}
-			
-			#dot{
+
+			#dot {
 				position: fixed;
 				display: block;
-				top: 3px;
-				right: 3px;
+				top: 1vw;
+				right: 1vw;
 				//line-height: 18px;
 				width: 8px;
 				height: 8px;
@@ -78,31 +76,37 @@
 			#note {
 				width: 100%;
 				min-height: 20px;
-				line-height: 26px;
+				//line-height: 26px;
+				margin: 5px 0;
 				padding: 0px 5px;
 				outline: none;
 				color: #333;
 				border: 0 solid #fff;
-				border-left: 1.3px solid #eee;
+				border-left: 1.6px solid #eee;
 				font-size: 18px;
 				transition: all .5s;
+				caret-color: #77c;
 				word-wrap: break-word;
+				word-break: break-all;
 				box-sizing: border-box;
 			}
 
-			#note:hover,
-			#note:focus {
+			#note:hover{
 				color: #111;
 			}
-			
-			#note *{
-				max-width: 99% !important;
+			#note:focus {
+				color: #000;
+				background: rgba(250,250,250);
 			}
-			
-			#note img{
-				max-width: 99% !important;
+
+			#note * {
+				max-width: 99.6% !important;
+			}
+
+			#note img {
+				max-width: 99.6% !important;
 				max-height: 80vh !important;
-				margin: 3px 0;
+				//margin: 3px 0;
 			}
 
 			#note p {
@@ -111,37 +115,42 @@
 
 			#note a {
 				color: #333;
-				text-decoration: none;
-				border-bottom: 1px solid #555;
-				margin: 0 2px 0 0;
+				display: inline-block;
+				//background: rgba(250,250,250,.9);
+				text-decoration: underline;
+				text-decoration-color: rgba(119, 119, 204, .5);
+				margin: 0 2px 1px 0;
+				padding: 1px;
 			}
 
-			#note a:hover {
+			#note a:hover,#note a:focus {
 				color: #77c;
-				border-bottom: 1px solid #77c;
+				background-color: #eeeeee;
+				border-radius: 3px;
+				/* border-bottom: 1px solid #77c; */
 			}
-			
-			#note iframe{
+
+			#note iframe {
 				width: 76vw;
 				height: 42.75vw;
-				max-width: 99% !important;
+				max-width: 99.6% !important;
 				max-height: 495px;
 				margin: 3px 0;
 			}
-			
-			#note video{
-				max-width: 99% !important;
+
+			#note video {
+				max-width: 99.6% !important;
 			}
 
 			.text-border {
 				/* border: 1px solid #eee !important; */
-				border-left: 1.3px solid #77c !important;
+				border-left: 1.6px solid #77c !important;
 			}
 
 			.control {
 				/* font-size: 0; */
-				margin: 8px 0 3px 0;
-				user-select: none; 
+				margin: 3px 0;
+				user-select: none;
 			}
 
 			.btn {
@@ -149,49 +158,51 @@
 				background: #fff;
 				width: 60px;
 				height: 30px;
-				border: 1px solid #555;
+				border: 1.6px solid #555;
+				box-shadow: 0 0 5px rgba(100, 100, 100, .2);
 				font-size: 15px;
-				/* font-weight: 600; */
+				font-weight: 700;
 				border-radius: 15px;
 				margin-right: 3px;
 				text-align: center;
 				box-sizing: border-box;
 				vertical-align: top;
 				cursor: pointer;
+				user-select: none;
 			}
 
-			.btn:hover {
+			.btn:hover,.btn:focus {
 				color: #77c;
-				border: 1px solid #77c;
+				border: 1.6px solid #77c;
 				background: #fff;
 				outline: none;
 			}
 
 			.btn:active {
 				color: #fff;
-				border: 1px solid #77c;
+				border: 1.6px solid #77c;
 				background: #77c;
 				outline: none;
 			}
-			
+
 			.btn-submit {
 				width: 92px;
 				margin: 0;
 			}
-			
-			#editbox{
+
+			#editbox {
 				display: inline-block;
 			}
-			
-			#edithtml{
+
+			#editHTML {
 				display: none;
 				-webkit-appearance: none;
 			}
-			
-			.htmlicon{
+
+			.icon-editHTML {
 				width: 30px;
 				height: 30px;
-				border: 1px solid #555;
+				border: 1.6px solid #555;
 				background: #fff;
 				border-radius: 15px;
 				outline: none;
@@ -200,36 +211,37 @@
 				display: inline-block;
 				box-sizing: border-box;
 			}
-			
-			.htmlicon:after {
+
+			.icon-editHTML:after {
 				color: #555;
 				content: '\003C\002F\003E';
 				position: absolute;
 				font-size: 12px;
+				font-weight: 700;
 				left: 50%;
 				top: 49%;
 				transform: translate(-50%, -50%);
 			}
-			
-			.htmlicon:hover{
-				border: 1px solid #77c;
+
+			.icon-editHTML:hover {
+				border: 1.6px solid #77c;
 			}
-			
-			.htmlicon:hover::after{
+
+			.icon-editHTML:hover::after,.icon-editHTML:focus::after {
 				color: #77c;
 			}
 
-			#edithtml:checked + .htmlicon {
-				border: 1px solid #77c;
+			#editHTML:checked+.icon-editHTML {
+				border: 1.6px solid #77c;
 				background: #77c;
 			}
 
-			#edithtml:checked + .htmlicon::after {
+			#editHTML:checked+.icon-editHTML::after {
 				color: #fff;
 			}
 
-			.add {
-				border: 1px solid #555;
+			.icon-add {
+				border: 1.6px solid #555;
 				width: 30px;
 				height: 30px;
 				border-radius: 15px;
@@ -241,8 +253,8 @@
 				box-sizing: border-box;
 			}
 
-			.add::before,
-			.add::after {
+			.icon-add::before,
+			.icon-add::after {
 				content: '';
 				position: absolute;
 				left: 50%;
@@ -250,27 +262,27 @@
 				transform: translate(-50%, -50%);
 			}
 
-			.add::before {
+			.icon-add::before {
 				width: 12px;
-				border-top: 1px solid;
+				border-top: 1.6px solid;
 			}
 
-			.add::after {
+			.icon-add::after {
 				height: 12px;
-				border-left: 1px solid;
+				border-left: 1.6px solid;
 			}
 
-			.add:hover {
+			.icon-add:hover,.icon-add:focus {
 				color: #77c;
-				border: 1px solid #77c;
+				border: 1.6px solid #77c;
 			}
-			
-			.add:active {
+
+			.icon-add:active {
 				color: #fff;
-				border: 1px solid #77c;
+				border: 1.6px solid #77c;
 				background: #77c;
 			}
-			
+
 			.tipbox {
 				/* display: flex;
 				justify-content: center;
@@ -284,6 +296,7 @@
 				margin: 12px auto;
 				position: fixed;
 				pointer-events: none;
+				user-select: none;
 			}
 
 			.tip {
@@ -299,7 +312,7 @@
 				border-radius: 3px;
 				box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 				pointer-events: auto;
-				transition: top .2s cubic-bezier(.2,.8,.3,1);
+				transition: top .2s cubic-bezier(.2, .8, .3, 1);
 				margin: 4px auto;
 				display: table;
 			}
@@ -313,11 +326,11 @@
 				width: 100%;
 				height: 100%;
 				background: rgba(0, 0, 0, .3);
-				z-index: 1009;
+				z-index: 1001;
 				//filter: blur(1px);
 			}
 
-			.close {
+			.icon-close {
 				position: absolute;
 				right: 32px;
 				top: 32px;
@@ -325,8 +338,8 @@
 				height: 32px;
 			}
 
-			.close:before,
-			.close:after {
+			.icon-close:before,
+			.icon-close:after {
 				position: absolute;
 				left: 15px;
 				content: ' ';
@@ -335,27 +348,28 @@
 				background-color: #fff;
 			}
 
-			.close:before {
+			.icon-close:before {
 				transform: rotate(45deg);
 			}
 
-			.close:after {
+			.icon-close:after {
 				transform: rotate(-45deg);
 			}
-			
-			.close:hover::before,
-			.close:hover::after{
+
+			.icon-close:hover::before,
+			.icon-close:hover::after {
 				background-color: #77c;
 			}
 
 			#container {
 				margin: 22vh auto;
-				width: 80vw;
+				width: 86vw;
+				height: 260px;
 				//height: 40vh;
 				max-width: 520px;
 				background: rgba(255, 255, 255, 1);
 				border-radius: 8px;
-				box-shadow: 0 1px 3px rgba(0,0,0,.5);
+				box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
 			}
 
 			#tab {
@@ -368,43 +382,45 @@
 
 			#tab li {
 				color: #555;
+				font-size: 15px;
+				font-weight: 700;
 				width: 33.33%;
 				float: left;
 				line-height: 46px;
 				text-align: center;
 				list-style: none;
-				cursor:pointer;
+				cursor: pointer;
 				display: inline-block;
 			}
-			
-			#tab li:hover{
+
+			#tab li:hover {
 				color: #77c;
 			}
-			
-			#tab .on{
+
+			#tab .on {
 				color: #77c;
 			}
-			
-			#tab-box{
-				padding: 4px 3% 8px 3%;
+
+			#tab-box {
+				padding: 4px 4vw;
 				position: relative;
 			}
-			
-			.tab-con{
+
+			.tab-con {
 				display: none;
 			}
-			
-			.group{
+
+			.group {
 				margin: 12px 0 8px 0;
 			}
-			
-			.group p{
+
+			.group p {
 				color: #555;
 				margin: 6px 0;
 			}
-			
+
 			.group input,
-			.group textarea{
+			.group textarea {
 				width: 100%;
 				padding: 6px 6px;
 				border: 1px solid #ccc;
@@ -412,41 +428,43 @@
 				font-size: 14px;
 				box-sizing: border-box;
 			}
-			
-			.group input{
+
+			.group input {
 				height: 34px;
+				max-width: 100%;
 			}
-			
+
 			.group input:focus,
-			.group textarea:focus{
+			.group textarea:focus {
 				border: 1px solid #77c;
 			}
-			
-			.group textarea{
+
+			.group textarea {
 				height: 105px;
-				resize:none;
+				resize: none;
 			}
-			
+
 			/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
-			.group textarea::-webkit-scrollbar{
+			.group textarea::-webkit-scrollbar {
 				width: 4px;
+				border-radius: 2px;
 				//background-color: #F5F5F5;
 			}
-				 
+
 			/*定义滚动条轨道 内阴影+圆角*/
-			.group textarea::-webkit-scrollbar-track{
+			.group textarea::-webkit-scrollbar-track {
 				border-radius: 2px;
-				background-color: rgba(240,240,240,.3);
+				background-color: rgba(240, 240, 240, .3);
 			}
-				 
+
 			/*定义滑块 内阴影+圆角*/
-			.group textarea::-webkit-scrollbar-thumb{
+			.group textarea::-webkit-scrollbar-thumb {
 				border-radius: 2px;
 				//box-shadow: inset 0 0 3px rgba(0,0,0,.3);
 				background-color: #77c;
 			}
-			
-			.ins-submit{
+
+			.ins-submit {
 				width: 100%;
 				//height: 100%;
 				//bottom: 0;
@@ -454,11 +472,11 @@
 				text-align: right;
 				box-sizing: border-box;
 			}
-			
-			.ui-upload {
-				padding: 4px 10px;
+
+			.pic-upload {
+				padding: 1px 1.6px;
 				height: 30px;
-				line-height: 20px;
+				max-width: 100%;
 				position: relative;
 				cursor: pointer;
 				color: #666;
@@ -466,10 +484,11 @@
 				border: 1px solid #ccc;
 				border-radius: 4px;
 				overflow: hidden;
-				display: inline-block;
+				display: inline-flex;
+				align-items:center;
 			}
 
-			/* .ui-upload  input {
+			/* .pic-upload  input {
 				position: absolute;
 				font-size: 100px;
 				right: 0;
@@ -479,41 +498,202 @@
 				cursor: pointer
 			} */
 
-			.ui-upload:hover {
+			.pic-upload:hover {
 				color: #333;
 				background: #eee;
 				border-color: #ccc;
 			}
 			
+			#pic-text{
+				padding: 4px 10px;
+			}
+			
+			#pic-preview{
+				max-width: 50%;
+				max-height: 100%;
+				border-radius: 2px;
+				object-fit: cover;
+			}
+			
+			#pic-preview:hover{
+				
+			}
+			
+		</style>
+
+		<style>
+			/* PrismJS 1.19.0*/
+
+			code[class*="language-"],
+			pre[class*="language-"] {
+				color: black;
+				background: none;
+				text-shadow: 0 1px white;
+				font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+				font-size: 1em;
+				text-align: left;
+				white-space: pre;
+				word-spacing: normal;
+				word-break: normal;
+				word-wrap: normal;
+				line-height: 1.5;
+
+				-moz-tab-size: 4;
+				-o-tab-size: 4;
+				tab-size: 4;
+
+				-webkit-hyphens: none;
+				-moz-hyphens: none;
+				-ms-hyphens: none;
+				hyphens: none;
+			}
+
+			pre[class*="language-"]::-moz-selection,
+			pre[class*="language-"] ::-moz-selection,
+			code[class*="language-"]::-moz-selection,
+			code[class*="language-"] ::-moz-selection {
+				text-shadow: none;
+				background: #b3d4fc;
+			}
+
+			pre[class*="language-"]::selection,
+			pre[class*="language-"] ::selection,
+			code[class*="language-"]::selection,
+			code[class*="language-"] ::selection {
+				text-shadow: none;
+				background: #b3d4fc;
+			}
+
+			@media print {
+				code[class*="language-"],
+				pre[class*="language-"] {
+					text-shadow: none;
+				}
+			}
+
+			/* Code blocks */
+			pre[class*="language-"] {
+				padding: 1em;
+				margin: .5em 0;
+				overflow: auto;
+			}
+
+			:not(pre)>code[class*="language-"],
+			pre[class*="language-"] {
+				background: #f5f2f0;
+			}
+
+			/* Inline code */
+			:not(pre)>code[class*="language-"] {
+				padding: .1em;
+				border-radius: .3em;
+				white-space: normal;
+			}
+
+			.token.comment,
+			.token.prolog,
+			.token.doctype,
+			.token.cdata {
+				color: slategray;
+			}
+
+			.token.punctuation {
+				color: #999;
+			}
+
+			.token.namespace {
+				opacity: .7;
+			}
+
+			.token.property,
+			.token.tag,
+			.token.boolean,
+			.token.number,
+			.token.constant,
+			.token.symbol,
+			.token.deleted {
+				color: #905;
+			}
+
+			.token.selector,
+			.token.attr-name,
+			.token.string,
+			.token.char,
+			.token.builtin,
+			.token.inserted {
+				color: #690;
+			}
+
+			.token.operator,
+			.token.entity,
+			.token.url,
+			.language-css .token.string,
+			.style .token.string {
+				color: #9a6e3a;
+				background: hsla(0, 0%, 100%, .5);
+			}
+
+			.token.atrule,
+			.token.attr-value,
+			.token.keyword {
+				color: #07a;
+			}
+
+			.token.function,
+			.token.class-name {
+				color: #DD4A68;
+			}
+
+			.token.regex,
+			.token.important,
+			.token.variable {
+				color: #e90;
+			}
+
+			.token.important,
+			.token.bold {
+				font-weight: bold;
+			}
+
+			.token.italic {
+				font-style: italic;
+			}
+
+			.token.entity {
+				cursor: help;
+			}
 		</style>
 	</head>
-	<body>
 
+	<body>
 		<div class="main">
+
+			<div class="tipbox">
+				<div class="tip" id="tip" style="display: none;"></div>
+			</div>
+
 			<div id="title">
-				<p id="title-text">HOPUC</p>
-				<i id="dot"></i>
-				<span id="time-text">2019-01-01 12:00</span>
+				<p id="title-text">HOPUC NOTE</p>
+				<i id="dot" title="正在加载"></i>
+				<span id="time-text">2019-01-01 12:00:00</span>
 			</div>
-			<div id="note" tabindex="1" spellcheck="false">Loading...
+
+			<div class="language-html" id="note" tabindex="1" spellcheck="false">
+				<div>Loading...</div>
 			</div>
+
 			<div class="control">
 				<button class="btn" id="submit">编辑</button>
 				<button class="btn" id="copy">复制</button>
 				<div id="editbox" style="display: none;">
-					<!-- <button class="btn" id="edithtml">&lt;/&gt;</button> -->
-					<!-- <input type="checkbox" class="htmlicon" id="edithtml" /> -->
-					<input type="checkbox" class="" id="edithtml" />
-					<label for="edithtml" class="htmlicon"></label>
-					<a class="add" id="add"></a>
+					<!-- <button class="btn" id="editHTML">&lt;/&gt;</button> -->
+					<!-- <input type="checkbox" class="icon-editHTML" id="editHTML" /> -->
+					<input type="checkbox" class="" id="editHTML" />
+					<label for="editHTML" class="icon-editHTML"></label>
+					<a class="icon-add" id="add"></a>
 				</div>
 			</div>
-		</div>
 
-		<div class="tipbox">
-			<div class="tip" id="tip" style="display: none;"></div>
-			<!-- <div id="tip">hahah2</div>
-			<div id="tip">hahah3</div> -->
 		</div>
 
 		<div id="mask">
@@ -545,7 +725,10 @@
 						<div class="group">
 							<p>上传图片</p>
 							<input type="file" id="pic" style="display: none;" />
-							<span class="ui-upload" onclick="pic.click()">点击上传图片</span>
+							<span class="pic-upload" onclick="pic.click()">
+								<img id="pic-preview" src="" >
+								<span id="pic-text">点击上传图片</span>
+							</span>
 						</div>
 						<div class="ins-submit">
 							<button class="btn btn-submit" id="btn-pic">插入图片</button>
@@ -561,20 +744,29 @@
 						</div>
 					</div>
 				</div>
-				<a class="close"></a>
+				<a class="icon-close"></a>
 			</div>
 		</div>
 
-		<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.19.0/prism.min.js"></script>
 		<script>
-			$.getJSON("noteapi.php", function(data) {
-				$("#time-text").html(data.time);
-				$("#note").html(data.note);
-				$("#dot").css("background", "#3c3");
-				console.log(data);
+			var note = $("#note");
+			var dot = $("#dot");
+			var submit = $("#submit");
+			var editHTML = $("#editHTML");
+			var mask = $("#mask");
+			var isReady = false;
+
+			$.getJSON("noteapi.php", function(result) {
+				$("#time-text").html(result.time);
+				note.html(result.note);
+				dot.css("background", "#3c3");
+				isReady = true;
+				console.log(result);
 			}).fail(function() {
-				tip("云端数据获取失败");
-				$("#dot").css("background", "#c33");
+				tip("数据获取失败");
+				dot.css("background", "#c33");
 			});
 
 			/*function zero(n) {
@@ -594,14 +786,13 @@
 			}*/
 
 			var n = 1;
-
 			function tip(e) {
 				var i = '<div class="tip" id="tip' + n + '"></div>';
 				$(".tipbox").append(i);
-				$("#tip" + n).text(e).fadeIn(800).delay(1500).fadeOut(800);
+				$("#tip" + n).text(e).fadeIn(700).delay(800).fadeOut(1500);
 				$("#tip" + (n - 2)).fadeOut(500);
 				$("#tip" + (n - 3)).remove();
-				//console.log(n);
+				console.log(e);
 				n = n + 1;
 			}
 
@@ -611,47 +802,52 @@
 				return date.toJSON().substr(0, 19).replace(/[T]/g, ' ');
 			}
 
-			$("#submit").click(function(e) {
+			submit.click(function(e) {
 				e.preventDefault();
-				if ($("#submit").text() == "编辑") {
-					$("#submit").text("保存");
-					$("#note").attr("contenteditable", "true").addClass("text-border");
-					$("#editbox").show(200);
-					//$("#add").css("display", "inline-block");
-					tip("编辑模式")
+				if (submit.text() == "编辑") {
+					if(dot.attr("style") == "background: rgb(51, 204, 51);"){
+					// if (1) {
+						submit.text("保存");
+						note.attr("contenteditable", "true").addClass("text-border");
+						$("#editbox").show(200);
+						//$("#add").css("display", "inline-block");
+						tip("编辑模式");
+					} else {
+						tip("暂未获取到数据")
+					}
 				} else {
 					tip("正在保存");
-					$("#dot").css("background", "#888");
-					if ($("#edithtml").is(':checked')) {
-						$("#note").html($("#note").text());
-						$("#edithtml").prop("checked", false);
+					dot.css("background", "#cc3");
+					if (editHTML.is(':checked')) {
+						// note.html(note.text());
+						// editHTML.prop("checked", false);
+						editHTML.click();
 					}
-					var note = $("#note").html();
-					var time = timenow();
+					var n = note.html();
+					var t = timenow();
 					$.post("noteapi.php", {
-							time: time,
-							note: note,
+							//time: t,
+							note: n
 						},
 						function(result) {
 							console.log(result);
-							if (result.status == 0) {
+							if (result.success) {
+								$("#tip" + (n - 1)).remove();
+								$("#time-text").html(t);
+								tip(result.message);
+								dot.css("background", "#3c3");
+							} else {
 								$("#tip" + (n - 1)).remove();
 								tip(result.message);
-							}
-							if (result.status == 1) {
-								$("#tip" + (n - 1)).remove();
-								$("#time-text").html(time);
-								tip(result.message);
-								$("#dot").css("background", "#3c3");
 							}
 						}, "json"
 					).fail(function() {
 						$("#tip" + (n - 1)).remove();
 						tip("保存失败");
-						$("#dot").css("background", "#c33");
+						dot.css("background", "#cc3");
 					});
-					$("#submit").text("编辑");
-					$("#note").attr("contenteditable", "false").removeClass("text-border");
+					submit.text("编辑");
+					note.attr("contenteditable", "false").removeClass("text-border");
 					$("#editbox").hide(200);
 					return false;
 				}
@@ -669,28 +865,39 @@
 				tip("复制成功");
 			});
 
+			editHTML.click(function(e) {
+				if (editHTML.is(':checked')) {
+					if (isReady) {
+						//console.log(note.html());
+						//note.text(note.html());
+						note.html(Prism.highlight(note.html(), Prism.languages.markup, html));
+						//Prism.highlightElement(note);
+						tip("HTML编辑模式");
+					} else {
+						e.preventDefault();
+						tip("暂未获取数据");
+					}
 
-			$("#edithtml").click(function(e) {
-				if ($("#edithtml").is(':checked')) {
-					$("#note").text($("#note").html());
-					tip("HTML编辑模式");
 				} else {
-					$("#note").html($("#note").text());
-					tip("普通编辑模式");
+					//console.log(note.text());
+					//console.log(note.html());
+					note.html(note.text());
+					//note.attr("onchange","");
+					tip("文本编辑模式");
 				}
 			});
-
 
 			$("#add").click(function() {
-				if ($("#edithtml").is(':checked')) {
-					$("#note").html($("#note").text());
-					$("#edithtml").prop("checked", false);
+				if (editHTML.is(':checked')) {
+					// note.html(note.text());
+					// editHTML.prop("checked", false);
+					editHTML.click();
 				}
-				$("#mask").show(200);
+				mask.show(200);
 			});
 
-			$(".close").click(function() {
-				$("#mask").hide(200);
+			$(".icon-close").click(function() {
+				mask.hide(200);
 			});
 
 			$("#tab>li").click(function() {
@@ -702,77 +909,51 @@
 				$(this).addClass("on").siblings().removeClass("on");
 			});
 
-
 			$("#btn-link").click(function() {
 				var url = $("#url").val();
 				var linkText = $("#linkText").val();
+				
+				if (!url.startsWith("http://")||!url.startsWith("https://")) {
+					url = "http://" + url;
+				}
+				if (linkText == null || linkText == "") {
+					linkText = url;
+				}
 				if (url != null && url != "") {
-					if (linkText != null && linkText != "") {
-						if (url.substr(0, 7).toLowerCase() == "http://" || url.substr(0, 8).toLowerCase() == "https://") {
-							$("#note").append('<a href="' + url + '">' + linkText + '</a>');
-						} else {
-							url = "http://" + url;
-							$("#note").append('<a href="' + url + '">' + linkText + '</a>');
-						}
-					} else {
-						if (url.substr(0, 7).toLowerCase() == "http://" || url.substr(0, 8).toLowerCase() == "https://") {
-							$("#note").append('<a href="' + url + '">' + url + '</a>');
-						} else {
-							url = "http://" + url;
-							$("#note").append('<a href="' + url + '">' + url + '</a>');
-						}
-					}
+					note.append('<a href="' + url + '">' + linkText + '</a>');
 					tip("链接已插入");
-					$("#mask").hide(200);
+					mask.hide(200);
 				} else {
 					tip("链接地址不能为空");
 				}
+				
 			});
 
 			$("#btn-pic").click(function() {
 				var picUrl = $("#picUrl").val();
 				var pic = $("#pic").val();
+				
+				if (!url.startsWith("http://")||!url.startsWith("https://")) {
+					var picUrl = "https://" + picUrl;
+				}
 				if (picUrl != null && picUrl != "") {
-					if (picUrl.substr(0, 7).toLowerCase() == "http://" || picUrl.substr(0, 8).toLowerCase() == "https://") {
-						$("#note").append('<img src="' + picUrl + '">');
-					} else {
-						picUrl = "http://" + picUrl;
-						$("#note").append('<img src="' + picUrl + '">');
-					}
+					note.append('<img src="' + picUrl + '">');
 					tip("图片已插入");
-					$("#mask").hide(200);
+					mask.hide(200);
 				} else if (pic != null && pic != "") {
-					/* var formData = new FormData();
-					formData.append('smfile', $("#pic").files[0]);
-					$.ajax({
-						url: 'https://sm.ms/api/upload',
-						type: 'POST',
-						data: formData,
-						cache: false,
-						contentType: false,
-						processData: false,
-						success: function(data) {
-							console.log(data);
-							$("#picUrl").val(data.data.url);
-						},
-						error: function(data) {
-							console.log(data);
-							tip("上传失败");
-						}
-					});
-					console.log("upload"); */
 					tip("正在上传中");
 				} else {
 					tip("图片链接不能为空");
 				}
+				
 			});
 
 			$("#btn-html").click(function() {
 				var html = $("#html").val();
 				if (html != null && html != "") {
-					$("#note").append(html);
+					note.append(html);
 					tip("HTML已插入");
-					$("#mask").hide(200);
+					mask.hide(200);
 				} else {
 					tip("HTML内容不能为空");
 				}
@@ -780,55 +961,69 @@
 			});
 
 			$("#pic").change(function() {
-
 				var path = $(this).val();
 				var imgstr = path.toLowerCase().split('.');
 				var imgtype = imgstr[imgstr.length - 1];
 				//console.log(imgtype);
-				if (imgtype != "png" && imgtype != "jpg" && imgtype != "jpeg" && imgtype != "gif" && imgtype != "bmp") {
+				if (this.files[0].size / 1024 > 5120) {
+					tip("文件不能大于5MB");
+					return false;
+				}else if (imgtype != "png" && imgtype != "jpg" && imgtype != "jpeg" && imgtype != "gif" && imgtype != "bmp") {
 					tip("不支持该文件类型");
 					return false;
 				} else {
 					var arr = path.split('\\');
 					var fileName = arr[arr.length - 1];
-					$(".ui-upload").text(fileName);
+					$("#pic-text").text(fileName);
+					
+					var reader = new FileReader();
+					reader.readAsDataURL(this.files[0]);
+					reader.onload = function (e) {
+						image = e.target.result;
+						$("#pic-preview").attr("src",image);
+						console.log(image);
+					};
+					
 				}
-				if (this.files[0].size / 1024 > 5120) {
-					tip("文件不能大于5MB");
-					return false;
-				}
-				//console.log(this.files[0].size);
+				
 				var formData = new FormData();
-				formData.append('smfile', this.files[0]);
+				formData.append('img', this.files[0]);
+				console.log(this.files[0].size);
+				console.log(formData);
 				$.ajax({
-					url: 'https://sm.ms/api/v2/upload',
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+					url: 'sm.php',
 					type: 'POST',
 					data: formData,
 					cache: false,
 					contentType: false,
 					processData: false,
 					dataType: 'json',
-				}).done(function(data) {
-					console.log(data);
-					if (data.success == 1) {
-						$("#picUrl").val(data.data.url);
+				}).done(function(result) {
+					console.log(result);
+					if (result.success) {
+						$("#picUrl").val(result.data.url);
+						$("#btn-pic").click();
 						tip("上传成功");
-					} else if (data.code == 'image_repeated') {
-						$("#picUrl").val(data.images);
+					} else if (result.code == 'image_repeated') {
+						$("#picUrl").val(result.images);
+						$("#btn-pic").click();
 						tip("上传成功");
-					} else if (data.code == 'error'){
+					} else if (result.code == 'error') {
 						tip("上传错误");
-					}else{
-						tip(data.message);
+					} else {
+						tip(result.message);
 					}
-				}).fail(function(data) {
-					console.log(data);
+				}).fail(function(result) {
+					console.log(result);
 					tip("上传失败");
 				});
 			});
 
-			$("#mask").click(function(e) {
-				$("#mask").hide(200);
+			mask.click(function(e) {
+				mask.hide(200);
 			});
 
 			$("#container").click(function(e) {
@@ -852,7 +1047,7 @@
 			$(document).keydown(function(e) {
 				if (e.ctrlKey && e.which == 83 || e.metaKey && e.which == 83) {
 					e.preventDefault();
-					$("#submit").click();
+					submit.click();
 				}
 			});
 
@@ -862,7 +1057,36 @@
 				});
 			}); */
 
-			console.log("Hopuc Note 2019-12-23");
+			/* var isclick = true;
+			note.on('DOMNodeInserted', function() {
+				if (isclick && editHTML.is(':checked')) {
+					isclick = false;
+					console.log("a");
+					note.html(Prism.highlight(note.text(), Prism.languages.markup, html));
+					setTimeout(function() {
+						isclick = true;
+					}, 2000)
+				}
+			}) */
+
+			note.on('paste', function(event) {
+				if (editHTML.is(':checked')) {
+					var e = event || window.event
+					// 阻止默认粘贴
+					e.preventDefault();
+					// 粘贴事件有一个clipboardData的属性，提供了对剪贴板的访问
+					// clipboardData的getData(fomat) 从剪贴板获取指定格式的数据
+					var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('在这里输入文本');
+					// 插入
+					document.execCommand("insertText", false, text);
+				}
+			})
+		</script>
+
+		<script>
+			//console.log("Hopuc Note");
+			console.log("%c Hopuc Note 2020-04-11 %c https://note.hopuc.com",
+				"color:#77c;background:#ddd;padding:5px 0;border-radius:3px", "color:#77c;")
 		</script>
 	</body>
 </html>
